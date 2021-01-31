@@ -1,5 +1,5 @@
 import networkx as nx
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from operator import itemgetter
 import wikipedia
 import urllib.request
@@ -64,18 +64,36 @@ while layer <= 1:
 
 
 	
-#Here's the graph we made (6k nodes, 8k edges)
+#Here's the graph we made (6k nodes, 8k edges; with depth 2)
 print("{} nodes, {} edges". format(len(F),nx.number_of_edges(F)))	
 
 
+# Many Wikipedia pages exist under > 1 name (e.g., "KC Chief"
+# and "KC Chiefs") and one may redirect to the former;
+# the following will get rid of some "self loops"
+F.remove_edges_from(nx.selfloop_edges(F))
 
 
+# F is a pretty big graph!
+# We can make a smaller subgraph by only including nodes
+# that have degree >= 2
+core = [node for node, deg in dict(F.degree()).items() if deg >= 2]
+G = nx.subgraph(F, core)
+# G is a lot smaller (1k nodes, 2k edges)
+print("{} nodes, {} edges".format(len(G), nx.number_of_edges(G)))
 
 
+# Display the smaller graph
+pos = nx.spring_layout(F) #G is the smaller graph (only deg >= 2)
+plt.figure(figsize=(50,50))
+nx.draw_networkx(G, pos=pos, with_labels=True)
+plt.axis('off')
+plt.show()
 
-
-
-
+# Display a list of subjects sorted by in-degree
+top_indegree = sorted(dict(G.in_degree()).items(),
+reverse=True, key=itemgetter(1))[:100]
+print("\n".join(map(lambda t: "{} {}".format(*reversed(t)), top_indegree)))
 
 
 
