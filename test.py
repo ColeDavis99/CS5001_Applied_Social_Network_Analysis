@@ -43,7 +43,7 @@ def build_graph(SEED, depth, charLimit):
 			break #Enough already (only wikipedia pages between a and c)
 		try:
 			#Download the selected Wikipedia page
-			wiki = wikipedia.page(page)
+			wiki = wikipedia.page(page, auto_suggest=False)
 		except:
 			layer, page = toDo_list[0]
 			print("Could not load page ", page)
@@ -102,8 +102,50 @@ def SimilarityRank(G):
 				print(key, "to", key2, ": ", s[key][key2])
 
 
+def NodeIntersection(G_one, G_two):
+	print()
+	G1 = nx.DiGraph(G_one)
+	G2 = nx.DiGraph(G_two)
+	G1_Node_Removal = list()
+	G2_Node_Removal = list()
+
+
+	#Loop through G1's nodes and remove G1 nodes that are not found anywhere within G2
+	for key in G1:
+		if(key not in G2):
+			#print(key, "is not in G2 so remove from G1")
+			G1_Node_Removal.append(key)
+	G1.remove_nodes_from(G1_Node_Removal)
+
+
+	#Loop through G2's nodes and remove G2 nodes that are not found anywhere within G1
+	for key in G2:
+		if(key not in G1):
+			#print(key, "is not in G1, so remove from G2")
+			G2_Node_Removal.append(key)
+	G2.remove_nodes_from(G2_Node_Removal)
+ 
+	#print("{} nodes, {} edges".format(len(G1), nx.number_of_edges(G1)))
+	#print("{} nodes, {} edges".format(len(G2), nx.number_of_edges(G2)))
+
+	I = nx.intersection(G1, G2)
+	print(type(I))
+	print(nx.info(I))
+
 #Builds core graph with no self loops and nodes with degree >= 2
-F = build_graph("Toototabon", 1, "C")
-DisplayGraph(F)
-DisplayTopInDegreeSubjects(F)
-SimilarityRank(F)
+R = build_graph("Rabbits (film)", 1, "C")
+T = build_graph("Toototabon", 1, "C")
+# DisplayGraph(R)
+# DisplayTopInDegreeSubjects(R)
+# SimilarityRank(R)
+
+
+#New intersection of T and R graphs called I
+NodeIntersection(T,R)
+
+
+#DisplayGraph(T)
+#DisplayGraph(R)
+
+
+#print(list(T.edges)) #Prints out name of each edge
