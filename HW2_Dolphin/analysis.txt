@@ -1,0 +1,20 @@
+Does this network exhibit a small-world effect?
+
+This network exhibits a small-world effect because it has a relatively small diameter compared to the total number of nodes in the graph (diameter is 8 and total # of nodes is 62, 0.125.)
+The effective eccentricity is also relatively small compared to the total number of nodes, effective eccentricity is ~3.6
+The characteristic path length is relatively small as well, as the average shortest path from any dolphin to any other dolphin was ~3.4.
+All of these factors indicate that this graph does exhibit a small-world effect.
+
+
+Is this network strongly cohesive?
+
+I think this network is moderately cohesive. The transitivity is 0.308 which is a fairly high value, but not enough to consider this graph as very cohesive. There is a decent number of triads in this graph, almost 1/3 of all possible triads are present.
+The closeness centrality of each node is also close to the same value, which means information can be spread through the graph effeciently. Again, I feel that this graph is moderately cohesive.
+
+
+Summary of 3 visualizations:
+BetweenNess Centrality - This graph shows which dolphins have the highest number of shortest paths that run through them. You can see that dolphins SN100, Beescratch, and Jet have some of the highest values for this metric. This means that these are the most "bridgey" dolphins for how information is communicated between groups.
+Eigen Centrality - This metric shows the dolphins that are the most "prestegious", meaning that their connections also have a large number of connections. You can see that Grin, Topless, SN4, and Scabs have the highest scores amongst all the dolphins. These dolphins would be the best ones to give information to if you wanted information to spread the quickest to all other dolphins.
+Closeness Centrality - Each dolphin has roughly the same score for their closeness centrality. This means that the graph can be considered well connected. If you give information to any dolphin, it will not be long before every dolphin knows the information as well. This metric is in agreement with the fact that the diameter of this graph is low, relative to the number of dolphins total.
+
+I do not see any conflicting information amongst these three visualizations, and I would conclude that this network is well connected and cohesive. Intelligent animals are typically highly social, and this graph showing a well connected network of dolphins was the expected outcome.
